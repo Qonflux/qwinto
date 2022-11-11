@@ -1,12 +1,12 @@
 const path = require('path');
 const http = require('http');
 const express = require('express');
-const socketio = require('socket.io')(http, { pingInterval: 10, pingTimeout: 4000 });
+const socketio = require('socket.io');
 const { joinRoom, getUsersInRoom, getRoom, removeUser, startRoom, roomStarted } = require('./utils/rooms');
 
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server);
+const io = socketio(server, { pingInterval: 25000, pingTimeout: 60000 });
 
 const port = process.env.PORT || 3000;
 const publicDirectoryPath = path.join(__dirname, 'client/dist');
