@@ -1,0 +1,51 @@
+{
+    "general": {
+        "name": "Name",
+        "player": "Spieler",
+        "players": "Spieler",
+        "no": "Nein"
+    },
+    "start": {
+        "online": "Online",
+        "single": "Einzelspieler",
+        "local": "Lokal",
+        "settings": "Einstellungen",
+        "username": "Nutzername",
+        "find-game": "Spiele suchen",
+        "soon": "Im Aufbau...",
+        "players-question": "Wie viele Spieler werden spielen?",
+        "start-game": "Spiel starten",
+        "language": "Sprache",
+        "lang-title": "Sprache wählen",
+        "more-players": "Suche nach mehr Spieler",
+        "online-summary": "Spiel online mit 2-6 Spielern",
+        "local-summary": "Spiel mit 2-6 Spielern auf 1 Gerät",
+        "single-summary": "Spiele gegen den Computer",
+        "settings-summary": "Ändere die Sprache des Spiels",
+        "begins-in": "Das Spiel beginnt in",
+        "begins-when": "Das Spiel beginnt, wenn 2 oder mehr Spieler online sind."
+    },
+    "game": {
+        "available-actions": "Mögliche Aktionen",
+        "choose-dices": "Würfel wählen",
+        "throw-dices": "Würfel rollen",
+        "enter-score": "Punktzahl eingeben",
+        "choose-failed": "Eingabe fehlwurf",
+        "wait-turn": "Warte bis du an der Reihe bist...",
+        "failed-throw": "Fehlwürfe",
+        "total": "Gesamt",
+        "confirm-title": "Bist du sicher?",
+        "error-title": "Fehlermeldung",
+        "confirm-fail": "In diesem Fall erhalten Sie -5 Punkte und der Zug geht an den nächsten Spieler.",
+        "error-column": "Die Nummer darf nicht mit einer Nummer darunter oder darüber identisch sein.",
+        "error-ascending": "Die Zahlen müssen aufsteigend sein.",
+        "error-throw": "Du musst zuerst werfen.",
+        "error-color": "Diese Farbe wurde nicht verwendet.",
+        "back-start": "Zurück zum Startbildschirm",
+        "notification": "Benachrichtigung",
+        "not-enough": "Es gibt nicht genügend Spieler, um das Spiel fortzusetzen. Versuchen Sie, ein Spiel wieder zu finden.",
+        "players-list": "Spielerliste",
+        "skip": "übergehen",
+        "left": "hat das Spiel verlassen"
+    }
+}

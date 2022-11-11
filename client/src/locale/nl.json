@@ -1,0 +1,51 @@
+{
+    "general": {
+        "name": "Naam",
+        "player": "Speler",
+        "players": "Spelers",
+        "no": "Nee"
+    },
+    "start": {
+        "online": "Online",
+        "single": "Solo",
+        "local": "Lokaal",
+        "settings": "Instellingen",
+        "username": "Gebruikersnaam",
+        "find-game": "Zoek spel",
+        "soon": "Komt binnenkort...",
+        "players-question": "Hoeveel spelers gaan spelen?",
+        "start-game": "Start spel",
+        "language": "Taal",
+        "lang-title": "Kies taal",
+        "more-players": "Meer spelers zoeken",
+        "online-summary": "Speel online met 2-6 spelers",
+        "local-summary": "Speel met 2-6 spelers op 1 apparaat",
+        "single-summary": "Speel tegen de computer",
+        "settings-summary": "Verander de taal van het spel",
+        "begins-in": "Spel begint over",
+        "begins-when": "Het spel begint als er 2 of meer spelers zijn."
+    },
+    "game": {
+        "available-actions": "Beschikbare acties",
+        "choose-dices": "Kies dobbelstenen",
+        "throw-dices": "Gooi dobbelstenen",
+        "enter-score": "Vul score in",
+        "choose-failed": "Kruis mislukte worp aan",
+        "wait-turn": "Wacht op je beurt...",
+        "failed-throw": "Mislukte worp",
+        "total": "Totaal",
+        "confirm-title": "Weet je het zeker?",
+        "error-title": "Foutmelding",
+        "confirm-fail": "In dit geval krijg je -5 punten en gaat de beurt naar de volgende speler.",
+        "error-column": "Het getal mag niet hetzelfde zijn als een getal hier onder of boven.",
+        "error-ascending": "De getallen moeten oplopend zijn.",
+        "error-throw": "Je moet eerst gooien.",
+        "error-color": "Deze kleur is niet gebruikt.",
+        "back-start": "Terug naar startscherm",
+        "notification": "Melding",
+        "not-enough": "Er zijn niet genoeg spelers om verder te gaan met het spel. Probeer opnieuw een spel te vinden.",
+        "players-list": "Spelerslijst",
+        "skip": "Sla over",
+        "left": "is weggegaan"
+    }
+}

@@ -1,0 +1,51 @@
+{
+    "general": {
+        "name": "Name",
+        "player": "Player",
+        "players": "Players",
+        "no": "No"
+    },
+    "start": {
+        "online": "Online",
+        "single": "Single player",
+        "local": "Local",
+        "settings": "Settings",
+        "username": "Username",
+        "find-game": "Find game",
+        "soon": "Coming soon...",
+        "players-question": "How many players will be playing?",
+        "start-game": "Start game",
+        "language": "Language",
+        "lang-title": "Choose language",
+        "more-players": "Finding more players",
+        "online-summary": "Play online with 2-6 players",
+        "local-summary": "Play with 2-6 players on 1 device",
+        "single-summary": "Play against a computer opponent",
+        "settings-summary": "Change the language of the game",
+        "begins-in": "Game begins in",
+        "begins-when": "The game will begin when there are 2 or more players."
+    },
+    "game": {
+        "available-actions": "Available actions",
+        "choose-dices": "Choose dices",
+        "throw-dices": "Throw dices",
+        "enter-score": "Enter score",
+        "choose-failed": "Enter failed attempt",
+        "wait-turn": "Wait for your turn...",
+        "failed-throw": "Failed attempt",
+        "total": "Total",
+        "confirm-title": "Are you sure?",
+        "error-title": "Error",
+        "confirm-fail": "In this case you get -5 points and the turn passes to the next player.",
+        "error-column": "The number cannot be the same as a number below or above.",
+        "error-ascending": "The numbers must be ascending.",
+        "error-throw": "You have to throw first.",
+        "error-color": "This color has not been used.",
+        "back-start": "Back to start",
+        "notification": "Notification",
+        "not-enough": "There are not enough players to continue the game. Try to find a new game.",
+        "players-list": "Players list",
+        "skip": "Skip",
+        "left": "has left"
+    }
+}

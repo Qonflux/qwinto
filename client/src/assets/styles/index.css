@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .score-normal {
+      @apply w-8 h-8 pt-1 mx-1 my-1 text-center bg-white rounded-full;
+  }
+
+  .score-bonus {
+      @apply w-8 h-8 pt-1 mx-1 my-1 font-bold text-center text-white bg-green-600 rounded-full;
+  }
+
+  button:disabled {
+      @apply opacity-50 cursor-not-allowed;
+  }
+}
