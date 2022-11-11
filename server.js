@@ -1,7 +1,7 @@
 const path = require('path');
 const http = require('http');
 const express = require('express');
-const socketio = require('socket.io');
+const socketio = require('socket.io')(http, { pingInterval: 10, pingTimeout: 4000 });
 const { joinRoom, getUsersInRoom, getRoom, removeUser, startRoom, roomStarted } = require('./utils/rooms');
 
 const app = express();
