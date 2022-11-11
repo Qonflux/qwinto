@@ -1,7 +1,7 @@
 <template>
   <the-header v-if="numPlayers"></the-header>
   <start-form v-if="numPlayers === 0" @start-game="startGame"></start-form>
-  <portrait-notification v-if="isPortrait"></portrait-notification>
+  <portrait-notification v-if="isPortrait && numPlayers > 0"></portrait-notification>
   <score-card
     v-for="(player, i) in gameData" 
     :key="i" 
