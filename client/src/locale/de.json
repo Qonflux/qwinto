@@ -46,6 +46,7 @@
         "not-enough": "Es gibt nicht genügend Spieler, um das Spiel fortzusetzen. Versuchen Sie, ein Spiel wieder zu finden.",
         "players-list": "Spielerliste",
         "skip": "übergehen",
-        "left": "hat das Spiel verlassen"
+        "left": "hat das Spiel verlassen",
+        "portrait": "Ihr Gerät befindet sich im Hochformat, bitte wechseln Sie in das Querformat."
     }
 }

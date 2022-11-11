@@ -1,6 +1,7 @@
 <template>
   <the-header v-if="numPlayers"></the-header>
   <start-form v-if="numPlayers === 0" @start-game="startGame"></start-form>
+  <portrait-notification v-if="isPortrait"></portrait-notification>
   <score-card
     v-for="(player, i) in gameData" 
     :key="i" 
@@ -36,6 +37,7 @@ import ScoreCard from "./components/ScoreCard.vue";
 import ControlPanel from "./components/ControlPanel.vue";
 import AvailableActions from "./components/AvailableActions.vue";
 import TotalResults from "./components/TotalResults.vue";
+import PortraitNotification from "./components/PortraitNotification.vue";
 import { mapActions, mapGetters } from 'vuex';
 import scoreMixin from './mixins/score.js';
 
@@ -47,7 +49,8 @@ export default {
     ScoreCard,
     ControlPanel,
     AvailableActions,
-    TotalResults
+    TotalResults,
+    PortraitNotification
   },
   mixins: [scoreMixin],
   data() {
@@ -56,7 +59,8 @@ export default {
       userLeft: null,
       totalScores: [],
       dices: null,
-      checkedColors: []
+      checkedColors: [],
+      isPortrait: false
     };
   },
   computed: {
@@ -94,6 +98,7 @@ export default {
     ),
     startGame() {
       this.resetRoundData();
+      this.checkOrientation()
     },
     passDiceColors(data) {
       this.checkedColors = data;
@@ -162,9 +167,6 @@ export default {
       let zeroArr = colors.red[0].concat(colors.yellow[0], colors.purple[0]);
       let oneArr = colors.red[1].concat(colors.yellow[1], colors.purple[1]);
       let twoArr = colors.red[2].concat(colors.yellow[2], colors.purple[2]);
-      console.log('zero: ', zeroArr);
-      console.log('one: ', oneArr);
-      console.log('two: ', twoArr);
       
       let numDices;
       let chance = Math.random();
@@ -250,7 +252,6 @@ export default {
     },
     addBotScore(turn) {
       let total = this.roundData.dices.total;
-      console.log(turn, total);
       let colorsUsed = [];
       ['red', 'yellow', 'purple'].forEach(color => {
         if (this.roundData.dices[color] > 0) colorsUsed.push(color);
@@ -301,8 +302,7 @@ export default {
       }
 
       if (scoreData.length === 0 && turn === 'own') { // no compatible field/color found
-        if (this.roundData.remainingRolls > 0) {      
-          console.log('Roll again');    
+        if (this.roundData.remainingRolls > 0) {   
           setTimeout(() => {
             // roll dices again
             this.$refs.controlDices.rollDices();  
@@ -368,6 +368,15 @@ export default {
         arr[index] = temp;
       }
       return arr;
+    },
+    checkOrientation() {
+      if (window.matchMedia("(orientation: portrait)").matches && window.innerWidth < 768) {
+        console.log(true);
+        this.isPortrait = true
+      } else {
+        console.log(false);
+        this.isPortrait = false
+      }
     }
   },
   watch: {
@@ -414,6 +423,14 @@ export default {
         this.addBotScore('other');
       }
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      window.addEventListener('resize', this.checkOrientation);
+    })
+  },
+  unmounted() { 
+    window.removeEventListener('resize', this.checkOrientation); 
   },
   created() {
     // get localStorage items if there are any

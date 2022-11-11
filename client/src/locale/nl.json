@@ -46,6 +46,7 @@
         "not-enough": "Er zijn niet genoeg spelers om verder te gaan met het spel. Probeer opnieuw een spel te vinden.",
         "players-list": "Spelerslijst",
         "skip": "Sla over",
-        "left": "is weggegaan"
+        "left": "is weggegaan",
+        "portrait": "Je apparaat staat in de portretmodus (staand/portrait). Kantel uw apparaat 90 graden om over te schakelen naar liggende modus (landscape)."
     }
 }

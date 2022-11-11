@@ -46,6 +46,7 @@
         "not-enough": "There are not enough players to continue the game. Try to find a new game.",
         "players-list": "Players list",
         "skip": "Skip",
-        "left": "has left"
+        "left": "has left",
+        "portrait": "Your device is in portait mode, please switch to landscape mode to play the game."
     }
 }
