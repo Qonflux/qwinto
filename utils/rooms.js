@@ -58,6 +58,7 @@ const getRoom = (socketid, name) => {
 };
 
 const removeUser = socketid => {
+  let removed;
   const roomIdx = getRoomIdx(socketid); 
   if (typeof roomIdx !== 'undefined') {
     const userIdx = rooms[roomIdx].users.findIndex(user => user.ids.includes(socketid));
@@ -67,13 +68,14 @@ const removeUser = socketid => {
     
     if (rooms[roomIdx].users[userIdx].ids.length === 0) {
       rooms[roomIdx].users.splice(userIdx, 1);
+      removed = true
 
       if (rooms[roomIdx].users.length === 0) {
         removeRoom(rooms[roomIdx].name);
         console.log('Room deleted');
       }
     } 
-    return userIdx;
+    return removed;
   }
 };
 

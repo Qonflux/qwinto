@@ -83,7 +83,7 @@ io.on('connection', socket => {
     let room = getRoom(socket.id)
     setTimeout(() => {
       const user = removeUser(socket.id);
-      if (typeof user !== 'undefined' && user !== -1) {
+      if (user) {
         io.to(room).emit('roomData', {
           users: getUsersInRoom(room),
           started: roomStarted(room),
