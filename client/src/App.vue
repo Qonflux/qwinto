@@ -1,6 +1,6 @@
 <template>
   <the-header v-if="numPlayers"></the-header>
-  <start-form v-if="numPlayers === 0" @start-game="startGame"></start-form>
+  <start-form v-if="numPlayers === 0" @start-game="startGame" @error="error = $event"></start-form>
   <portrait-notification v-if="isPortrait && numPlayers > 0"></portrait-notification>
   <score-card
     v-for="(player, i) in gameData" 
@@ -43,6 +43,7 @@ import scoreMixin from './mixins/score.js';
 
 export default {
   name: "App",
+
   components: {
     TheHeader,
     StartForm,
@@ -52,7 +53,9 @@ export default {
     TotalResults,
     PortraitNotification
   },
+
   mixins: [scoreMixin],
+
   data() {
     return {
       error: false,
@@ -63,6 +66,7 @@ export default {
       isPortrait: false
     };
   },
+
   computed: {
     ...mapGetters(['gameType', 'gameData', 'roundData', 'gameIsOver', 'numPlayers', 'socket', 'myName']),
     checkActivePlayer() {
@@ -91,6 +95,7 @@ export default {
       return this.gameType === 'solo' && this.roundData.activePlayer !== 0 && this.roundData.scoreAdded.length !== 0
     }
   },
+
   methods: {
     ...mapActions(
       ['resetRoundData', 'setRoundData', 'setGameData', 'setGameOver', 
@@ -98,7 +103,7 @@ export default {
     ),
     startGame() {
       this.resetRoundData();
-      this.checkOrientation()
+      this.checkOrientation();
     },
     passDiceColors(data) {
       this.checkedColors = data;
@@ -133,7 +138,7 @@ export default {
         red: [[], [], []],
         yellow: [[], [], []],
         purple: [[], [], []]
-      }
+      };
 
       // fill color arrays with current scores
       let colorNames = ['red', 'yellow', 'purple'];
@@ -371,14 +376,13 @@ export default {
     },
     checkOrientation() {
       if (window.matchMedia("(orientation: portrait)").matches && window.innerWidth < 768) {
-        console.log(true);
         this.isPortrait = true
       } else {
-        console.log(false);
         this.isPortrait = false
       }
     }
   },
+
   watch: {
     gameOver() {
       this.gameData.forEach((_, player) => {
@@ -424,14 +428,19 @@ export default {
       }
     }
   },
+
   mounted() {
     this.$nextTick(() => {
       window.addEventListener('resize', this.checkOrientation);
     })
+    localStorage.removeItem('playing-name')
   },
+
   unmounted() { 
     window.removeEventListener('resize', this.checkOrientation); 
+    localStorage.removeItem('playing-name')
   },
+
   created() {
     // get localStorage items if there are any
     let lang = localStorage.getItem('lang');
@@ -442,6 +451,8 @@ export default {
 
     this.socket.on('connect', () => {
       console.log('Connected!', this.socket.id);
+      const name = localStorage.getItem('playing-name')
+      if (name) this.socket.emit('addId', { username: name })
     });
 
     this.socket.on('roomData', ({ users, started, user }) => {
@@ -481,6 +492,7 @@ export default {
 
     this.socket.on('gameOver', () => {
       this.setGameOver();
+      localStorage.removeItem('playing-name')
     });
   }
 };

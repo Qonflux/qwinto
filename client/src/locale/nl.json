@@ -23,7 +23,8 @@
         "single-summary": "Speel tegen de computer",
         "settings-summary": "Verander de taal van het spel",
         "begins-in": "Spel begint over",
-        "begins-when": "Het spel begint als er 2 of meer spelers zijn."
+        "begins-when": "Het spel begint als er 2 of meer spelers zijn.",
+        "username-taken": "Deze gebruikersnaam wordt al gebruikt."
     },
     "game": {
         "available-actions": "Beschikbare acties",

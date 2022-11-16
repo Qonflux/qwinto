@@ -1,24 +1,23 @@
 const rooms = [];
 
+const hasUser = username => {
+  return rooms.some(room => room.users.some(user => user.username === username))
+};
+
 const joinRoom = (id, username) => {
   let joinableRoom; 
 
   if (rooms.length !== 0) {
-    const roomsContainingUser = [];
-    rooms.forEach((room, index) => {
-      let hasUser = room.users.find(user => user.username === username);
-      if (hasUser) roomsContainingUser.push(index);
-    });
     joinableRoom = rooms.findIndex((room, index) => {
-      return room.users.length < 6 && !room.started && !roomsContainingUser.includes(index)
+      return room.users.length < 6 && !room.started
     });
   }
 
   if (joinableRoom !== -1 && typeof joinableRoom !== 'undefined') {
-    rooms[joinableRoom].users.push({ id, username });
+    rooms[joinableRoom].users.push({ ids: [id], username });
   } else {
     const newRoom = createRoom();
-    rooms[newRoom].users.push({ id, username });
+    rooms[newRoom].users.push({ ids: [id], username });
   }
 };
 
@@ -28,57 +27,70 @@ const createRoom = () => {
   return rooms.findIndex(room => room.name === name);
 };
 
-const getUsersInRoom = room => {
-  const roomId = rooms.findIndex(roomNo => roomNo.name === room);
-  if (roomId !== -1) return rooms[roomId].users.map(user => user.username);
-}
+const addId = (id, username) => {
+  const roomIdx = getRoomIdx(null, username)
+  const userIdx = rooms[roomIdx].users.findIndex(user => user.username === username)
+  rooms[roomIdx].users[userIdx].ids.push(id)
+};
 
-const getRoomId = socketid => {
+const getUsersInRoom = room => {
+  const roomIdx = rooms.findIndex(roomNo => roomNo.name === room);
+  if (roomIdx !== -1) return rooms[roomIdx].users.map(user => user.username);
+};
+
+const getRoomIdx = (socketid, name) => {
   let roomId; 
   for (let i = 0; i < rooms.length; i++) {
-    let search = rooms[i].users.find(user => user.id === socketid);
+    let search = rooms[i].users.find(user => user.ids.includes(socketid) || user.username === name);
     if (typeof search !== 'undefined') {
       roomId = i; 
       break;
     }  
   }
   return roomId;
-}
+};
 
-const getRoom = socketid => {
-  const roomId = getRoomId(socketid);
+const getRoom = (socketid, name) => {
+  const roomId = getRoomIdx(socketid, name);
   if (typeof roomId !== 'undefined') {
     return rooms[roomId].name;
   }
 };
 
 const removeUser = socketid => {
-  const roomId = getRoomId(socketid); 
-  if (typeof roomId !== 'undefined') {
-    const userIndex = rooms[roomId].users.findIndex(user => user.id === socketid);
-    rooms[roomId].users.splice(userIndex, 1);
-    if (rooms[roomId].users.length === 0) {
-      removeRoom(rooms[roomId].name);
-      console.log('Room deleted');
-    }
-    return userIndex;
+  const roomIdx = getRoomIdx(socketid); 
+  if (typeof roomIdx !== 'undefined') {
+    const userIdx = rooms[roomIdx].users.findIndex(user => user.ids.includes(socketid));
+    const idIdx = rooms[roomIdx].users[userIdx].ids.findIndex(id => id === socketid);
+    rooms[roomIdx].users[userIdx].ids.splice(idIdx, 1)
+
+    
+    if (rooms[roomIdx].users[userIdx].ids.length === 0) {
+      rooms[roomIdx].users.splice(userIdx, 1);
+
+      if (rooms[roomIdx].users.length === 0) {
+        removeRoom(rooms[roomIdx].name);
+        console.log('Room deleted');
+      }
+    } 
+    return userIdx;
   }
-}
+};
 
 const removeRoom = room => {
   const roomId = rooms.findIndex(roomNo => roomNo.name === room);
   rooms.splice(roomId, 1);
-}
+};
 
 const startRoom = socketid => { 
-  const roomId = getRoomId(socketid); 
+  const roomId = getRoomIdx(socketid); 
   rooms[roomId].started = true;
-}
+};
 
 const roomStarted = room => { 
   const roomId = rooms.findIndex(roomNo => roomNo.name === room); 
   if (typeof roomId !== 'undefined' && roomId !== -1) return rooms[roomId].started;
-}
+};
 
 module.exports = {
   joinRoom,
@@ -87,4 +99,6 @@ module.exports = {
   removeUser,
   startRoom,
   roomStarted,
+  addId,
+  hasUser
 };

@@ -9,7 +9,7 @@ const store = createStore({
   state() {
     return {
       gameType: null,
-      socket: io(/* 'http://localhost:3000',  */{
+      socket: io('http://localhost:3000', {
         transports: ['websocket'],
         allowUpgrades: false
       }),

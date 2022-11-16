@@ -54,7 +54,7 @@
   </div>
   <div class="form mx-auto max-w-xs">
     <local-form v-if="type === 'local'" @start="startGame"></local-form>
-    <online-form v-if="type === 'online'" @in-lobby="toggleLobby" @start-game="startOnlineGame"></online-form>
+    <online-form v-if="type === 'online'" @in-lobby="toggleLobby" @start-game="startOnlineGame" @error="$emit('error', $event)"></online-form>
     <start-settings v-if="type === 'settings'"></start-settings>
     <solo-form v-if="type === 'solo'" @start="startSoloGame"></solo-form>
   </div>
@@ -83,7 +83,9 @@ export default {
     StartSettings,
     SoloForm,
   },
-  emits: ['start-game'],
+
+  emits: ['start-game', 'error'],
+
   data() {
     return {
       gameData: [],
@@ -92,6 +94,7 @@ export default {
       lang: localStorage.getItem('lang'),
     };
   },
+
   computed: {
     bgGradient() {
       return { 
@@ -109,6 +112,7 @@ export default {
       return ''
     }
   },
+
   methods: {
     ...mapActions(['setGameData', 'setGameType']),
     setLang(lang) {

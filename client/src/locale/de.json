@@ -23,7 +23,8 @@
         "single-summary": "Spiele gegen den Computer",
         "settings-summary": "Ändere die Sprache des Spiels",
         "begins-in": "Das Spiel beginnt in",
-        "begins-when": "Das Spiel beginnt, wenn 2 oder mehr Spieler online sind."
+        "begins-when": "Das Spiel beginnt, wenn 2 oder mehr Spieler online sind.",
+        "username-taken": "Dieser Benutzername wird bereits benutzt."
     },
     "game": {
         "available-actions": "Mögliche Aktionen",

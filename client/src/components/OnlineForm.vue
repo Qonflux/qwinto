@@ -1,5 +1,5 @@
 <template>
-  <form v-if="!inLobby" @submit.prevent="findGame" class="w-full my-6 text-center">
+  <form v-if="!inLobby" @submit.prevent="checkUsername" class="w-full my-6 text-center">
     <div>
       <label class="text-white">{{ $t('general.name') }}:</label>
       <input
@@ -26,30 +26,45 @@ import { mapGetters } from 'vuex';
 
 export default {
   emits: ['in-lobby', 'start-game'],
+
   components: {
     GameLobby
   },  
+
   data() {
     return {
       username: this.$store.getters.storedName || '',
-      inLobby: false
+      inLobby: false,
+      isLoading: false
     };
   },
+
   methods: {
+    checkUsername() {
+      if (this.username === '') return;
+      this.socket.emit('checkUsername', { username: this.username });
+    },
     findGame() {
-      if (this.username !== '') {
-        localStorage.setItem('name', this.username);
-        this.$store.dispatch('storeName', this.username);
-        this.inLobby = true;
-        this.$emit('in-lobby');
-      }
+      localStorage.setItem('name', this.username);
+      this.$store.dispatch('storeName', this.username);
+      this.inLobby = true;
+      this.$emit('in-lobby');
     },
     startGame(players) {
+      localStorage.setItem('playing-name', this.username);
       this.$emit('start-game', players)
     }
   },
+  
   computed: {
-    ...mapGetters(['myName'])
-  }  
+    ...mapGetters(['myName', 'socket'])
+  },
+  
+  created() {
+    this.socket.on('hasUsername', (boolean) => {
+      if (!boolean) this.findGame()
+      else this.$emit('error', this.$t('start.username-taken'))
+    });
+  }
 };
 </script>

@@ -23,7 +23,8 @@
         "single-summary": "Play against a computer opponent",
         "settings-summary": "Change the language of the game",
         "begins-in": "Game begins in",
-        "begins-when": "The game will begin when there are 2 or more players."
+        "begins-when": "The game will begin when there are 2 or more players.",
+        "username-taken": "This username is already in use."
     },
     "game": {
         "available-actions": "Available actions",

@@ -2,11 +2,26 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
-const { joinRoom, getUsersInRoom, getRoom, removeUser, startRoom, roomStarted } = require('./utils/rooms');
+const { 
+  joinRoom, 
+  getUsersInRoom, 
+  getRoom, 
+  removeUser, 
+  startRoom, 
+  roomStarted, 
+  addId,
+  hasUser
+} = require('./utils/rooms');
 
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server, { pingInterval: 25000, pingTimeout: 60000 });
+const io = socketio(server, { 
+  pingInterval: 25000, 
+  pingTimeout: 60000, 
+  cors: {
+    origins: ['http://localhost:8080']
+  } 
+});
 
 const port = process.env.PORT || 3000;
 const publicDirectoryPath = path.join(__dirname, 'client/dist');
@@ -15,6 +30,15 @@ app.use(express.static(publicDirectoryPath));
 
 io.on('connection', socket => {
   console.log('New WebSocket connection');
+
+  socket.on('checkUsername', ({ username }) => {
+    console.log(username);
+    if (hasUser(username)) {
+      io.to(socket.id).emit('hasUsername', true)
+    } else {
+      io.to(socket.id).emit('hasUsername', false)
+    }
+  });
 
   socket.on('join', ({ username }) => {
     console.log(username, ':', socket.id )
@@ -49,17 +73,23 @@ io.on('connection', socket => {
     io.to(getRoom(socket.id)).emit('gameOver');
   });
 
+  socket.on('addId', ({ username }) => {
+    addId(socket.id, username)
+  });
+
   socket.on('disconnect', reason => {
     console.log(socket.id, 'left:', reason);
     let room = getRoom(socket.id)
-    const user = removeUser(socket.id);
-    if (typeof user !== 'undefined' && user !== -1) {
-      io.to(room).emit('roomData', {
-        users: getUsersInRoom(room),
-        started: roomStarted(room),
-        user
-      });
-    }
+    setTimeout(() => {
+      const user = removeUser(socket.id);
+      if (typeof user !== 'undefined' && user !== -1) {
+        io.to(room).emit('roomData', {
+          users: getUsersInRoom(room),
+          started: roomStarted(room),
+          user
+        });
+      }
+    }, 5000);
   });
 });
 

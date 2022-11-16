@@ -56,7 +56,7 @@ export default {
   watch: {
     numPlayers(_, oldValue) {
       if (this.numPlayers === 2 && oldValue === 1) {
-        this.time = 30;
+        this.time = 10;
         this.socket.emit('time', this.time);
         this.timer = setInterval(() => {
           this.time--;
