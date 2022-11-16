@@ -29,11 +29,8 @@ const createRoom = () => {
 
 const addId = (id, username) => {
   const roomIdx = getRoomIdx(null, username)
-  console.log('Room idx: ' + roomIdx);
   const userIdx = rooms[roomIdx].users.findIndex(user => user.username === username)
-  console.log('User idx: ' + userIdx);
   rooms[roomIdx].users[userIdx].ids.push(id)
-  console.log('Room idx: ' + rooms[roomIdx].users[userIdx].ids);
 };
 
 const getUsersInRoom = room => {
@@ -67,7 +64,6 @@ const removeUser = socketid => {
     const userIdx = rooms[roomIdx].users.findIndex(user => user.ids.includes(socketid));
     const idIdx = rooms[roomIdx].users[userIdx].ids.findIndex(id => id === socketid);
     rooms[roomIdx].users[userIdx].ids.splice(idIdx, 1)
-
     
     if (rooms[roomIdx].users[userIdx].ids.length === 0) {
       rooms[roomIdx].users.splice(userIdx, 1);
@@ -97,6 +93,14 @@ const roomStarted = room => {
   if (typeof roomId !== 'undefined' && roomId !== -1) return rooms[roomId].started;
 };
 
+const addRoundData = (socketid, data) => {
+  
+};
+
+const addGameData = (socketid, data) => {
+
+};
+
 module.exports = {
   joinRoom,
   getUsersInRoom,
@@ -105,5 +109,7 @@ module.exports = {
   startRoom,
   roomStarted,
   addId,
-  hasUser
+  hasUser,
+  addRoundData,
+  addGameData
 };
