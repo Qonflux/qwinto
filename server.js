@@ -18,6 +18,7 @@ const server = http.createServer(app);
 const io = socketio(server, { 
   pingInterval: 25000, 
   pingTimeout: 60000, 
+  maxHttpBufferSize: 1e8, // 100 MB we can upload to server (default = 1 MB)
   cors: {
     origins: ['http://localhost:8080']
   } 
