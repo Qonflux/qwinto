@@ -29,8 +29,11 @@ const createRoom = () => {
 
 const addId = (id, username) => {
   const roomIdx = getRoomIdx(null, username)
+  console.log('Room idx: ' + roomIdx);
   const userIdx = rooms[roomIdx].users.findIndex(user => user.username === username)
+  console.log('User idx: ' + userIdx);
   rooms[roomIdx].users[userIdx].ids.push(id)
+  console.log('Room idx: ' + rooms[roomIdx].users[userIdx].ids);
 };
 
 const getUsersInRoom = room => {
@@ -39,15 +42,15 @@ const getUsersInRoom = room => {
 };
 
 const getRoomIdx = (socketid, name) => {
-  let roomId; 
+  let roomIdx; 
   for (let i = 0; i < rooms.length; i++) {
     let search = rooms[i].users.find(user => user.ids.includes(socketid) || user.username === name);
     if (typeof search !== 'undefined') {
-      roomId = i; 
+      roomIdx = i; 
       break;
     }  
   }
-  return roomId;
+  return roomIdx;
 };
 
 const getRoom = (socketid, name) => {

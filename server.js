@@ -33,7 +33,6 @@ io.on('connection', socket => {
   console.log('New WebSocket connection');
 
   socket.on('checkUsername', ({ username }) => {
-    console.log(username);
     if (hasUser(username)) {
       io.to(socket.id).emit('hasUsername', true)
     } else {
