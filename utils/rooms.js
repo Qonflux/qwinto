@@ -93,14 +93,6 @@ const roomStarted = room => {
   if (typeof roomId !== 'undefined' && roomId !== -1) return rooms[roomId].started;
 };
 
-const addRoundData = (socketid, data) => {
-  
-};
-
-const addGameData = (socketid, data) => {
-
-};
-
 module.exports = {
   joinRoom,
   getUsersInRoom,
@@ -109,7 +101,5 @@ module.exports = {
   startRoom,
   roomStarted,
   addId,
-  hasUser,
-  addRoundData,
-  addGameData
+  hasUser
 };

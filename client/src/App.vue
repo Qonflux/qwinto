@@ -293,15 +293,13 @@ export default {
       });
 
       let scoreData = [];
-      outerLoop:
       for (let i = 0; i < originalArr.length; i++) {
         for (let y = 0; y < originalArr[i].fields.length; y++) {
           let scoreField = originalArr[i].fields[y];
           let scoreColor = originalArr[i].color;
           if (this.scoreCheck(scoreField, scoreColor) === true && 
           !this.gameData[this.roundData.activePlayer][scoreColor][scoreField]) {
-            scoreData.push(scoreColor, scoreField);
-            break outerLoop;
+            scoreData.push({ color: scoreColor, field: scoreField });
           }
         }
       }
@@ -327,16 +325,49 @@ export default {
       }
 
     },
-    pushScore(data) {
-      let color = data[0];
-      let field = data[1];
+    pushScore(scoreData) {
+      let chosenField = {
+        field: scoreData[0].field,
+        color: scoreData[0].color
+      };
+
+      for (let data of scoreData) {
+        const score = this.roundData.dices.total;
+
+        // check if previous field has score minus 1
+        const minus = 
+          (data.color === 'red' && data.field === 6) || 
+          (data.color === 'yellow' && data.field === 7) ||
+          (data.color === 'purple' && data.field === 5) 
+            ? 2 
+            : 1;
+        const previousField = data.field - minus;
+        
+        if (this.gameData[this.roundData.activePlayer][data.color][previousField] === score - 1) {
+          chosenField = data;
+        }
+
+        // check if next field has score plus 1
+        const plus = 
+          (data.color === 'red' && data.field === 4) || 
+          (data.color === 'yellow' && data.field === 5) ||
+          (data.color === 'purple' && data.field === 3) 
+            ? 2 
+            : 1;
+        const nextField = data.field + plus;
+
+        if (this.gameData[this.roundData.activePlayer][data.color][nextField] === score + 1) {
+          chosenField = data;
+        }
+
+      }
 
       setTimeout(() => {
         this.setScore({ 
-          color: color, 
-          field: field 
+          color: chosenField.color, 
+          field: chosenField.field 
         });
-        // Check if winning conditions are met
+        // check if winning conditions are met
         this.calcWinningConditions();
         this.nextPlayer({ next: null });
       }, 2000);

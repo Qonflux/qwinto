@@ -10,9 +10,7 @@ const {
   startRoom, 
   roomStarted, 
   addId,
-  hasUser,
-  addRoundData,
-  addGameData
+  hasUser
 } = require('./utils/rooms');
 
 const app = express();
@@ -65,12 +63,10 @@ io.on('connection', socket => {
 
   socket.on('roundData', data => {
     io.to(getRoom(socket.id)).emit('roundData', data);
-    /* addRoundData(socket.id, data) */
   });
 
   socket.on('gameData', data => {
     io.to(getRoom(socket.id)).emit('gameData', data);
-    /* addGameData(socket.id, data) */
   });
 
   socket.on('gameOver', () => {

@@ -60,12 +60,14 @@ export default {
     player: Number,
     gameOver: Boolean
   },
+  
   components: {
     ScoreRow,
     ScoreField,
     FailedRow,
     TotalRow
   },
+  
   data() {
     return {
       scoreFieldData: {
@@ -114,6 +116,7 @@ export default {
       }
     };
   },
+  
   computed: {
     ...mapGetters(['gameData', 'roundData', 'gameType', 'myId']),
     showPlayer() {

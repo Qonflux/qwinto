@@ -26,6 +26,7 @@ export default {
       type: Number
     }
   },
+  
   computed: {
     ...mapGetters(['gameData', 'roundData']),
     bg() {

@@ -4,11 +4,16 @@
 
 @layer base {
   .score-normal {
-      @apply w-8 h-8 pt-1 mx-1 my-1 text-center bg-white rounded-full;
+      @apply w-8 h-8 pt-1 my-1 text-center bg-white rounded-full;
   }
 
   .score-bonus {
-      @apply w-8 h-8 pt-1 mx-1 my-1 font-bold text-center text-white bg-green-600 rounded-full;
+    position: relative;
+	width: 34px;
+	height: 31px;
+	background: #fff;
+	clip-path: polygon(50% 0, 100% 38%, 81% 100%, 19% 100%, 0 38%);
+    @apply my-1 text-center pt-1;
   }
 
   button:disabled {

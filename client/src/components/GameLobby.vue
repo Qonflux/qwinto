@@ -36,7 +36,9 @@ import { mapActions, mapGetters } from 'vuex';
 
 export default {
   props: ['username'],
+
   emits: ['start-game'],
+
   data() {
     return {
       users: [],
@@ -44,15 +46,18 @@ export default {
       timer: null,
     };
   },
+
   methods: {
     ...mapActions(['setId', 'setName']),
   },
+
   computed: {
     ...mapGetters(['socket']),
     numPlayers() {
       return this.users.length;
     },
   },
+
   watch: {
     numPlayers(_, oldValue) {
       if (this.numPlayers === 2 && oldValue === 1) {
@@ -73,6 +78,7 @@ export default {
       }
     },
   },
+  
   created() {
     this.socket.on('startGame', () => {
       let id = this.users.indexOf(this.username);

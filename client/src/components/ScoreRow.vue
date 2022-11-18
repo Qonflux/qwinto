@@ -18,17 +18,20 @@ import scoreMixin from '../mixins/score.js';
 
 export default {
   mixins: [scoreMixin],
+  
   props: {
     color: {
       type: String,
       required: true
     }
   },
+  
   data() {
     return {
       errorMessage: null,
     };
   },
+  
   methods: {
     ...mapActions(['setScore', 'nextPlayer', 'setGameOver']),
     addScore(e, color) {
@@ -66,6 +69,7 @@ export default {
       }
     }
   },
+  
   computed: {
     ...mapGetters(['gameData', 'roundData', 'numPlayers', 'myId', 'gameType', 'socket'])
   }
